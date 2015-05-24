@@ -1,0 +1,44 @@
+digraph G {
+	/* Add players */
+	"start"                                           -> "'player' was added";
+        "'player' was added"                              -> "They are player number '1'" [label="max 6 times"];
+        "They are player number '1'"                      -> "'player' was added";
+	"They are player number '1'"                      -> "'player' is the current player";
+
+	/* Next player, rolling */
+	"'player' is the current player"                  -> "They have rolled a '1'" [label="roll"];
+	"They have rolled a '1'"                          -> "Ever went in\npenalty box ?";
+
+	/* Never in penalty box */
+        "Ever went in\npenalty box ?"                     -> "'player''s new location is 1" [label="no"];
+        "'player''s new location is 1"                    -> "The category is 'Science'" [label="depends on location"];
+	"The category is 'Science'"                       -> "'Science' Question '0'";
+
+	/* Correct answer */
+        "'Science' Question '0'"                          -> "Answer was corrent!!!!" [label="9 times on 10"];
+	"Answer was corrent!!!!"                          -> "'player' now has '1' Gold Coins."
+	"'player' now has '1' Gold Coins."                -> "6 Gold\nCoins ?";
+	"6 Gold\nCoins ?"                                 -> "'player' is the current player" [label="not yet"];
+
+	/* Wrong answer */
+	"'Science' Question '0'"                          -> "Question was incorrectly answered" [label="1 time on 10"];
+	"Question was incorrectly answered"               -> "'player' was sent to the penalty box";
+	"'player' was sent to the penalty box"            -> "'player' is the current player";
+
+	/* Getting out of penalty box */
+	"Ever went in\npenalty box ?"                     -> "'player' is getting out\nof the penalty box" [label="yes, and roll\nis not pair"];
+	"'player' is getting out\nof the penalty box"     -> "'player''s new location is 1";
+
+	/* Not Getting out of penalty box */
+	"Ever went in\npenalty box ?"                     -> "'player' is not getting out\nof the penalty box" [label="yes, and roll\nis pair"];
+        "'player' is not getting out\nof the penalty box" -> "'player' is the current player";
+
+	/* Winner */
+	"6 Gold\nCoins ?"                                 -> "end" [label="yes"];
+
+	/* Shapes */
+	"start"                       [shape=rectangle,style=filled,color=limegreen];
+	"end"                         [shape=rectangle,style=filled,color=lightblue];
+	"Ever went in\npenalty box ?" [shape=diamond,style=filled,color=lightgrey];
+	"6 Gold\nCoins ?"             [shape=diamond,style=filled,color=lightgrey];
+}
