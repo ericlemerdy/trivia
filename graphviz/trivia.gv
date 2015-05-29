@@ -1,7 +1,7 @@
 digraph G {
 	/* Add players */
 	"start"                                           -> "'player' was added";
-        "'player' was added"                              -> "They are player number '1'" [label="max 6 times"];
+        "'player' was added"                              -> "They are player number '1'" [label="max 5 times"];
         "They are player number '1'"                      -> "'player' was added";
 	"They are player number '1'"                      -> "'player' is the current player";
 
